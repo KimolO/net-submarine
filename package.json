@@ -1,0 +1,19 @@
+{
+  "name": "net-submarine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KimolO/net-submarine.git"
+  },
+  "author": "joaquim sant (kimolO)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KimolO/net-submarine/issues"
+  },
+  "homepage": "https://github.com/KimolO/net-submarine#readme"
+}
