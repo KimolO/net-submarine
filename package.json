@@ -2,9 +2,12 @@
   "name": "net-submarine",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "testWithCoverage": "jest --coverage",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,22 @@
   "bugs": {
     "url": "https://github.com/KimolO/net-submarine/issues"
   },
-  "homepage": "https://github.com/KimolO/net-submarine#readme"
+  "engines": {
+    "node": ">=10.15.0"
+  },
+  "homepage": "https://github.com/KimolO/net-submarine#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@types/puppeteer": "^1.12.3",
+    "babel-jest": "^24.7.1",
+    "eslint": "^5.15.0",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.3333",
+    "typescript-tslint-plugin": "^0.3.1"
+  },
+  "dependencies": {
+    "puppeteer": "^1.14.0"
+  }
 }
