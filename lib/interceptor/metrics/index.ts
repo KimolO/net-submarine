@@ -12,6 +12,8 @@ export * from './impl/googleAnalytics';
 export * from './impl/jetpack';
 export * from './impl/lotame';
 export * from './impl/quantcast';
+
+export * from './interface';
 export const createEmptyMetricsJson = (): IMetricsJSON => ({
     alexa: [],
     blueKai: [],
