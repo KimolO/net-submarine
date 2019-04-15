@@ -21,10 +21,14 @@ netSubmarine.metrics.alexa(page, (alexaTracker: IAlexa) => {
 ## Develope
 
 Build
+```bash
     npm run build
+```
 Test
+```shell
     npm run test
     npm run testWithCoverage
+```
 
 ## License
 
