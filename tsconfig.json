@@ -65,7 +65,6 @@
   },
   "include": [
     "lib/index.ts",
-    "node_modules/@types/puppeteer/index.d.ts",
-    "playground/playground.ts"
+    "node_modules/@types/puppeteer/index.d.ts"
   ]
 }

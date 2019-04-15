@@ -8,9 +8,12 @@
             "type": "node",
             "runtimeVersion": "10.15.3",
             "request": "launch",
-            "name": "RUN : CURRENT : Tests",
+            "name": "CURRENT : Tests",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "args": ["${relativeFile}"],
+            "args": [
+                "${relativeFile}",
+                "--runInBand"
+            ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "windows": {
@@ -21,39 +24,9 @@
             "type": "node",
             "runtimeVersion": "10.15.3",
             "request": "launch",
-            "name": "RUN : PLAYGROUND",
-            "program": "${workspaceFolder}/playground/playground.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
-        },
-        {
-            "type": "node",
-            "runtimeVersion": "10.15.3",
-            "request": "launch",
-            "name": "DEBUG : CURRENT : Tests",
+            "name": "ALL : Tests",
             "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-            "cwd": "${workspaceRoot}",
-            "args": [
-                "--runInBand", //Run all tests serially in the current process, rather than creating a worker pool of child processes that run tests. This can be useful for debugging.
-                "--config",
-                "jest.config.js",
-                "${file}",
-            ]
-        },
-        {
-            "type": "node",
-            "runtimeVersion": "10.15.3",
-            "request": "launch",
-            "name": "DEBUG : ALL : Tests",
-            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-            "cwd": "${workspaceRoot}",
-            "args": [
-                "--runInBand",
-                "--config",
-                "jest.config.js",
-            ]
+            "console": "integratedTerminal",
         },
     ]
 }
