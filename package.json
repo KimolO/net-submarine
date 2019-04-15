@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/KimolO/net-submarine.git"
   },
-  "author": "joaquim sant (kimolO)",
+  "author": "joaquim sant (github.com/KimolO)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/KimolO/net-submarine/issues"
