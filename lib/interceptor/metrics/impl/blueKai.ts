@@ -6,13 +6,13 @@ export const blueKai = async (page: puppeteer.Page, callback: (x: IBlueKai) => v
     observe.urlMatch(
         page,
         /^https:\/\/stags\.bluekai\.com\/site\/.+\?/,
-        (request: puppeteer.Request) => {
+        {request: (request: puppeteer.Request) => {
             let id = request.url().substr('https://stags.bluekai.com/site/'.length);
             id = id.substr(0, id.indexOf('?'));
 
             callback({
                 id,
             });
-        },
+        }},
     );
 };

@@ -7,10 +7,13 @@ export type Request = puppeteer.Request;
 export type Response = puppeteer.Response;
 export type ResourceType = puppeteer.ResourceType;
 
+interface ICallback {
+  request?: FunctionRequestCallback;
+  response?: FunctionResponseCallback;
+}
 interface Iobserver {
   filter: (request: puppeteer.Request) => boolean;
-  reqCB?: FunctionRequestCallback;
-  resCB?: FunctionResponseCallback;
+  callback?: ICallback;
   matchingUrls?: string[];
   abort?: boolean;
 }
@@ -43,15 +46,13 @@ class RequestObserver {
 
       for (const ob of observers) {
         if (ob.filter(request)) {
-          if (ob.resCB) {
-            if (ob.matchingUrls) {
-              ob.matchingUrls.push(request.url());
-            } else {
-              ob.matchingUrls = [request.url()];
-            }
-          }
-          if (ob.reqCB) {
-            ob.reqCB(request);
+          if (ob.callback) {
+              if (ob.callback.response) {
+                (ob.matchingUrls || (ob.matchingUrls = [])).push(request.url());
+              }
+              if (ob.callback.request) {
+                ob.callback.request(request);
+              }
           }
           if (ob.abort) {
             toAbortRequest = true;
@@ -67,11 +68,12 @@ class RequestObserver {
 
       for (const ob of observers) {
         if (
-          ob.resCB &&
+          ob.callback &&
+          ob.callback.response &&
           ob.matchingUrls &&
           ob.matchingUrls.includes(response.url())
         ) {
-          ob.resCB(response);
+          ob.callback.response(response);
         }
       }
     });
@@ -88,31 +90,27 @@ export const observe = {
   async request(
     page: puppeteer.Page,
     filter: (request: puppeteer.Request) => boolean,
-    reqCB: FunctionRequestCallback,
-    resCB?: FunctionResponseCallback,
+    callback: ICallback,
   ) {
     RequestObserver.addObserver(page, {
+      callback,
       filter,
-      reqCB,
-      resCB,
     });
   },
 
   async requestType(
     page: puppeteer.Page,
     type: ResourceType,
-    reqCB: FunctionRequestCallback,
-    resCB?: FunctionResponseCallback,
+    callback: ICallback,
   ) {
-    this.request(page, (request) => request.resourceType() === type, reqCB, resCB);
+    this.request(page, (request) => request.resourceType() === type, callback);
   },
   async urlMatch(
     page: puppeteer.Page,
     regex: RegExp,
-    reqCB: FunctionRequestCallback,
-    resCB?: FunctionResponseCallback,
+    callback: ICallback,
   ) {
-    this.request(page, (request) => regex.test(request.url()), reqCB, resCB);
+    this.request(page, (request) => regex.test(request.url()), callback);
   },
 };
 

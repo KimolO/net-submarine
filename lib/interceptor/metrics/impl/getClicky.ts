@@ -10,13 +10,13 @@ export const getClicky = async (
   observe.urlMatch(
     page,
     /^https:\/\/in\.getclicky\.com\/in\.php\?/,
-    (request: puppeteer.Request) => {
+    {request : (request: puppeteer.Request) => {
       const url = request.url();
       const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
 
       callback({
         siteId: searchParams.get('site_id') || 'ERROR: site_id not found',
       });
-    },
+    }},
   );
 };

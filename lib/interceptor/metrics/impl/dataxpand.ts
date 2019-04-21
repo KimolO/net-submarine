@@ -8,12 +8,12 @@ export const dataxpand = async (page: puppeteer.Page, callback: (x: IDataxpand) 
     observe.urlMatch(
         page,
         dataspanRegex,
-        (request: puppeteer.Request) => {
+        {request : (request: puppeteer.Request) => {
             const match = dataspanRegex.exec(request.url());
 
             callback({
                 siteId: match ? match[1] : 'ERROR: siteId not found',
             });
-        },
+        }},
     );
 };

@@ -7,13 +7,13 @@ export const chartbeat = async (page: puppeteer.Page, callback: (x: IChartbeat) 
     observe.urlMatch(
         page,
         /^https:\/\/ping\.chartbeat\.net\/ping\?/,
-        (request: puppeteer.Request) => {
+        {request : (request: puppeteer.Request) => {
             const url = request.url();
             const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
 
             callback({
                 uid: searchParams.get('g') || 'ERROR: uid not found',
             });
-        },
+        }},
     );
 };

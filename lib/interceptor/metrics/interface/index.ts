@@ -47,6 +47,19 @@ export interface IJetpack {
 export interface ILotame {
     account: string;
 }
+
+export interface IOnthe {
+    projectId: string;
+}
+
+export interface IPanmetrics {
+    siteId: string;
+}
+
+export interface IParsely {
+    apiKey: string;
+}
+
 export interface IQuantcast {
     pcode: string;
 }
@@ -63,5 +76,8 @@ export interface IMetricsJSON {
     googleAnalytics: IGoogleAnalytics[];
     jetpack: IJetpack[];
     lotame: ILotame[];
+    onthe: IOnthe[];
+    panmetrics: IPanmetrics[];
+    parsely: IParsely[];
     quantcast: IQuantcast[];
  }

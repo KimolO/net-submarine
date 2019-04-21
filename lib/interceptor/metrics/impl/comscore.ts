@@ -7,7 +7,7 @@ export const comscore = async (page: puppeteer.Page, callback: (x: IComscore) =>
     observe.urlMatch(
         page,
         /^https:\/\/sb\.scorecardresearch\.com\/b\?/,
-        (request: puppeteer.Request) => {
+        {request : (request: puppeteer.Request) => {
             const url = request.url();
             const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
 
@@ -15,6 +15,6 @@ export const comscore = async (page: puppeteer.Page, callback: (x: IComscore) =>
                 c2Var: searchParams.get('c2') || 'ERROR: a not found',
                 extraUrlParams: searchParams.get('comscorekw') || undefined,
             });
-        },
+        }},
     );
 };

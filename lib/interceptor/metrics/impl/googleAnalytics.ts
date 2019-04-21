@@ -21,7 +21,7 @@ export const googleAnalytics = async (page: puppeteer.Page, callback: (x: IGoogl
     observe.urlMatch(
         page,
         /^https:\/\/www\.google-analytics\.com\/.*collect\?/,
-        (request: puppeteer.Request) => {
+        {request : (request: puppeteer.Request) => {
 
             const url = request.url();
             const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
@@ -31,6 +31,6 @@ export const googleAnalytics = async (page: puppeteer.Page, callback: (x: IGoogl
                 dimensions: Object.entries(dimensions).length > 0 ? dimensions : undefined,
                 uaCode: searchParams.get('tid') || 'ERROR: tid not found',
             });
-        },
+        }},
     );
 };

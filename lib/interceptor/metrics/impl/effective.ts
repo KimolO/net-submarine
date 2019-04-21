@@ -10,13 +10,13 @@ export const effective = async (
   observe.urlMatch(
     page,
     /^https:\/\/collector\.effectivemeasure\.net\/pixel\?/,
-    (request: puppeteer.Request) => {
+    {request : (request: puppeteer.Request) => {
       const url = request.url();
       const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
 
       callback({
         frame: searchParams.get('vn') || 'ERROR: uid not found',
       });
-    },
+    }},
   );
 };

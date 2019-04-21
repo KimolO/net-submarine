@@ -43,6 +43,15 @@ const callMetrics = async (
     case 'lotame':
       metrics.lotame(page, callback);
       break;
+    case 'onthe':
+      metrics.onthe(page, callback);
+      break;
+    case 'panmetrics':
+      metrics.panmetrics(page, callback);
+      break;
+    case 'parsely':
+      metrics.parsely(page, callback);
+      break;
     case 'quantcast':
       metrics.quantcast(page, callback);
       break;
@@ -68,10 +77,12 @@ export const execTest = (
     let reqCB: (r: Request) => void;
 
     beforeAll(async () => {
-      observe.urlMatch = jest.fn((mypage, myrgx, myreqCB) => {
+      observe.urlMatch = jest.fn((mypage, myrgx, callback) => {
         observedPage = mypage;
         rgx = myrgx;
-        reqCB = myreqCB;
+        if (callback && callback.request) {
+          reqCB = callback.request;
+        }
         return Promise.resolve();
       });
 

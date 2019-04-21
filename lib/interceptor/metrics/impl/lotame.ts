@@ -7,12 +7,12 @@ export const lotame = async (page: puppeteer.Page, callback: (x: ILotame,
     observe.urlMatch(
         page,
         /^https:\/\/.+\.crwdcntrl\.net\/5\/c=.+/,
-        (request: puppeteer.Request) => {
+        {request : (request: puppeteer.Request) => {
             const c = /\/c=(.+?)\//.exec(request.url());
 
             callback({
                 account : (c && c.length > 1) ? c[1] : 'ERROR: lotame account not found',
             });
-        },
+        }},
     );
 };

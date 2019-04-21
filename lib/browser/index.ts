@@ -6,16 +6,16 @@ interface IPageAndBrowser {
 }
 
 const pageAndBrowser =
-    async (pageOptions: IPageOptions, optionalBrowser?: puppeteer.Browser):
+    async (pageOptions?: IPageOptions, optionalBrowser?: puppeteer.Browser):
         Promise<IPageAndBrowser> => {
         const browser: puppeteer.Browser =
-            optionalBrowser || await puppeteer.launch(pageOptions.launchOptions);
+            optionalBrowser || await puppeteer.launch(pageOptions && pageOptions.launchOptions);
         const page: puppeteer.Page = optionalBrowser ? await browser.newPage() : (await browser.pages())[0];
 
-        if (pageOptions.userAgent) {
+        if (pageOptions && pageOptions.userAgent) {
             page.setUserAgent(pageOptions.userAgent);
         }
-        if (pageOptions.url) {
+        if (pageOptions && pageOptions.url) {
             await page.goto(pageOptions.url);
         }
 
@@ -36,10 +36,8 @@ export interface IPageOptions {
 }
 
 export const getPage =
-    async (pageOptions: IPageOptions, browser?: puppeteer.Browser):
+    async (pageOptions?: IPageOptions, browser?: puppeteer.Browser):
         Promise<puppeteer.Page> => {
-        await puppeteer.launch(pageOptions.launchOptions);
-
         const { page } = await pageAndBrowser(pageOptions, browser);
 
         return page;

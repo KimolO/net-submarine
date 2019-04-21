@@ -1,5 +1,6 @@
 import {IMetricsJSON} from './interface';
 
+// IMPL
 export * from './impl/alexa';
 export * from './impl/blueKai';
 export * from './impl/chartbeat';
@@ -11,20 +12,13 @@ export * from './impl/getClicky';
 export * from './impl/googleAnalytics';
 export * from './impl/jetpack';
 export * from './impl/lotame';
+export * from './impl/onthe';
+export * from './impl/panmetrics';
+export * from './impl/parsely';
 export * from './impl/quantcast';
 
+// interface
 export * from './interface';
-export const createEmptyMetricsJson = (): IMetricsJSON => ({
-    alexa: [],
-    blueKai: [],
-    chartbeat: [],
-    comscore: [],
-    dataxpand: [],
-    effective: [],
-    facebookAudiences: [],
-    getClicky: [],
-    googleAnalytics : [],
-    jetpack: [],
-    lotame: [],
-    quantcast: [],
-});
+
+// json
+export * from './json';

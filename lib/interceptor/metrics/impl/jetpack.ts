@@ -10,7 +10,7 @@ export const jetpack = async (
   observe.urlMatch(
     page,
     /^https:\/\/pixel\.wp\.com\/g\.gif\?/,
-    (request: puppeteer.Request) => {
+    {request : (request: puppeteer.Request) => {
       const url = request.url();
       const searchParams = new URLSearchParams(url.substr(url.indexOf('?')));
 
@@ -18,6 +18,6 @@ export const jetpack = async (
         blog: searchParams.get('blog') || 'ERROR: blog not found',
         tz: searchParams.get('tz') || 'ERROR: tz not found',
       });
-    },
+    }},
   );
 };

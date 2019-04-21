@@ -2,7 +2,7 @@ jest.mock('puppeteer');
 
 import puppeteer from 'puppeteer';
 import { Page, Request, Response } from 'puppeteer';
-import { abort, observe } from '../../lib/interceptor';
+import { abort, observe } from '../../lib';
 
 type FunctionRequestCallback = (data: puppeteer.Request) => void;
 type FunctionResponseCallback = (data: puppeteer.Response) => void;
@@ -50,14 +50,14 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
 
     expect(page.setRequestInterception).toHaveBeenCalledWith(true);
@@ -71,26 +71,26 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
     await observe.request(
       page2,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
     await observe.request(
       page2,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
 
     expect(page.setRequestInterception).toHaveBeenCalledWith(true);
@@ -107,8 +107,8 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
 
     expect(page.on).toHaveBeenCalledTimes(2);
@@ -124,8 +124,8 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
 
     expect(mockCallbackRq).not.toHaveBeenCalled();
@@ -143,8 +143,8 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => false,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
 
     expect(mockCallbackRq).not.toHaveBeenCalled();
@@ -161,14 +161,14 @@ describe('Observe', () => {
     await observe.request(
       page,
       (r: Request) => true,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq,
+        response: mockCallbackResponse },
     );
     await observe.request(
       page,
       (r: Request) => true,
-      callback2,
-      callbackResponse2,
+      { request: callback2,
+        response: callbackResponse2 },
     );
 
     expect(mockCallbackRq).not.toHaveBeenCalled();
@@ -200,7 +200,7 @@ describe('requestType + urlMatch', () => {
   });
 
   it('observe.requestType: calls observe.requerst and filter by request resourceType', async () => {
-    observe.request = jest.fn((p, filter, m1, m2) => {
+    observe.request = jest.fn((p, filter) => {
       request.resourceType.mockImplementation(() => 'script');
       expect(filter(request)).toBe(true);
       request.resourceType.mockImplementation(() => 'font');
@@ -211,13 +211,12 @@ describe('requestType + urlMatch', () => {
     await observe.requestType(
       page,
       'script',
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq },
     );
     expect(observe.request).toHaveBeenCalled();
   });
   it('observe.urlMatch: calls observe.requerst and filter by request uri + regex', async () => {
-    observe.request = jest.fn((p, filter, m1, m2) => {
+    observe.request = jest.fn((p, filter) => {
       request.url.mockImplementation(() => 'easyMatch');
       expect(filter(request)).toBe(true);
       request.url.mockImplementation(() => 'notMatching');
@@ -228,8 +227,7 @@ describe('requestType + urlMatch', () => {
     await observe.urlMatch(
       page,
       /easyMatch/,
-      mockCallbackRq,
-      mockCallbackResponse,
+      { request: mockCallbackRq },
     );
     expect(observe.request).toHaveBeenCalled();
   });
